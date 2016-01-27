@@ -15,11 +15,11 @@ import EZLoadingActivity
 //import AlgoliaSearch-Client-Swift
 
 class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDelegate, UISearchBarDelegate{
-
+    
     @IBOutlet var TableView: UITableView!
-
+    
     var movies: [NSDictionary]?
-var refreshControl = UIRefreshControl()
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ var refreshControl = UIRefreshControl()
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             NSLog("response: \(responseDictionary)")
-                          self.movies = responseDictionary["results"] as? [NSDictionary]
+                            self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.TableView.reloadData()
                     }
                 }
@@ -57,26 +57,26 @@ var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("reload"), forControlEvents: UIControlEvents.ValueChanged)
         task.resume()
         
-     
+        
     }
     
     func reload(){
         self.TableView.reloadData()
     }
-     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-      
-            if let movies = movies{
-                return movies.count
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        
+        if let movies = movies{
+            return movies.count
         }
         return 0
     }
     
-  
     
     
     
     
-   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         EZLoadingActivity.hide(success: true, animated: true)
         let cell = tableView.dequeueReusableCellWithIdentifier("boxCell") as! boxCell
         let movie = movies![indexPath.row]
@@ -89,6 +89,32 @@ var refreshControl = UIRefreshControl()
         // cell.
         cell.label1.text = title
         cell.textView1.text = overview
+        //-----below is code for fade in
+        let imageUrl = imageURL
+        let imageRequest = NSURLRequest(URL:imageUrl! )
+        
+        cell.image1.setImageWithURLRequest(
+            imageRequest,
+            placeholderImage: nil,
+            success: { (imageRequest, imageResponse, image) -> Void in
+                
+                // imageResponse will be nil if the image is cached
+                if imageResponse != nil {
+                    print("Image was NOT cached, fade in image")
+                    cell.image1.alpha = 0.0
+                    cell.image1.image = image
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        cell.image1.alpha = 1.0
+                    })
+                } else {
+                    print("Image was cached so just update the image")
+                    cell.image1.image = image
+                }
+            },
+            failure: { (imageRequest, imageResponse, error) -> Void in
+                // do something for the failure condition
+        })
+        
         
         return cell
         
@@ -115,15 +141,15 @@ var refreshControl = UIRefreshControl()
         
         
         let movie = movies![indexPath.row]
-         movietitleText = movie["title"] as! String
-         relasedate = movie["release_date"] as! String
-         popularity = movie["popularity"] as! NSNumber
-          vote_average = movie["vote_average"] as! NSNumber
-         votecount = movie["vote_count"] as! NSNumber
-         overview = movie["overview"] as! String
-          posterPath = movie["poster_path"] as! String
-         baseURL = "http://image.tmdb.org/t/p/w500"
-         imageURL = NSURL(string: baseURL + posterPath)!
+        movietitleText = movie["title"] as! String
+        relasedate = movie["release_date"] as! String
+        popularity = movie["popularity"] as! NSNumber
+        vote_average = movie["vote_average"] as! NSNumber
+        votecount = movie["vote_count"] as! NSNumber
+        overview = movie["overview"] as! String
+        posterPath = movie["poster_path"] as! String
+        baseURL = "http://image.tmdb.org/t/p/w500"
+        imageURL = NSURL(string: baseURL + posterPath)!
         //detialViewController().detailedLabel.text = overview
         // detialViewController().DetailImage.setImageWithURL(imageURL!)
         // detialViewController().movieTitle.text = title
@@ -136,17 +162,17 @@ var refreshControl = UIRefreshControl()
         //detialViewController().voteCountLabel.text = "Vote Count: " + s_count
         /// detialViewController().detailedLabel.text = "10000"
         //self.movietitle.text = movietitle
-      //  print(movietitle)
-       // print(popularity)
-      //  print(relasedate)
-       // print(vote_average)
+        //  print(movietitle)
+        // print(popularity)
+        //  print(relasedate)
+        // print(vote_average)
         //print(overview)
         //print(detialViewController().releaseDate.text)
         self.performSegueWithIdentifier("ShowDetail", sender: self)
         
     }
     
-
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"  {
@@ -163,11 +189,11 @@ var refreshControl = UIRefreshControl()
             detialViewControllerInstance.vote_averageLabelText = s_average
         }
     }
-   
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
