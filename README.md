@@ -2,7 +2,7 @@
 
 **Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **18** hours spent in total
+Time spent: **22** hours spent in total
 
 ## User Stories
 
@@ -18,19 +18,19 @@ The following **optional** features are implemented:
 - [t] User sees an error message when there's a networking error.
 - [ ] Movies are displayed using a CollectionView instead of a TableView.
 - [t] User can search for a movie.
-- [ ] All images fade in as they are loading.
+- [t ] All images fade in as they are loading.
 - [t] Customize the UI.
 
 The following **additional** features are implemented:
 
 - [t] List anything else that you can get done to improve the app functionality!
-- users can tap the tablecell to see movie detail information.
+-scrollview added
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/Jwv5v5d.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/wb4l9x5.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 ## Notes
