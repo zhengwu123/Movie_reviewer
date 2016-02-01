@@ -16,7 +16,7 @@ The following **required** functionality is complete:
 The following **optional** features are implemented:
 
 - [t] User sees an error message when there's a networking error.
-- [ ] Movies are displayed using a CollectionView instead of a TableView.
+- [t] Movies are displayed using a CollectionView instead of a TableView.
 - [t] User can search for a movie.
 - [t ] All images fade in as they are loading.
 - [t] Customize the UI.
