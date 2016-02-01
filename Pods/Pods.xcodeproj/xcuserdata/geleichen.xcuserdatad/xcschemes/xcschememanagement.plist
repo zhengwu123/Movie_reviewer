@@ -19,10 +19,20 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>EZLoadingActivity.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Pods-Movie review.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>4</integer>
+		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
@@ -43,6 +53,26 @@
 			<true/>
 		</dict>
 		<key>432ECC54282C84882B482CCB4CF227FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77D39443CAC55271E522A6DB9FE9E2C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>903A108934E1A089B76F443DC34C8E54</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9C005D92886FE3A2D0049F8FA262514F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BB8114C1B531050ED8027C74E0B6FCCA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

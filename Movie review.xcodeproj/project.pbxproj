@@ -17,6 +17,7 @@
 		D525E1EC1C3F4EF2008EA88A /* BoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D525E1EB1C3F4EF2008EA88A /* BoxViewController.swift */; };
 		D525E1F21C3F5A6F008EA88A /* boxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D525E1F11C3F5A6F008EA88A /* boxCell.swift */; };
 		D554387F1C3CB80600B535AE /* detialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D554387E1C3CB80600B535AE /* detialViewController.swift */; };
+		D5C0981A1C5ED9D90012E2D8 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C098191C5ED9D90012E2D8 /* CollectionCell.swift */; };
 		D5CFE2831C3C51DD00E6B922 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFE2821C3C51DD00E6B922 /* AppDelegate.swift */; };
 		D5CFE2851C3C51DD00E6B922 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CFE2841C3C51DD00E6B922 /* FirstViewController.swift */; };
 		D5CFE28A1C3C51DD00E6B922 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5CFE2881C3C51DD00E6B922 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		D525E1EB1C3F4EF2008EA88A /* BoxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxViewController.swift; sourceTree = "<group>"; };
 		D525E1F11C3F5A6F008EA88A /* boxCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boxCell.swift; sourceTree = "<group>"; };
 		D554387E1C3CB80600B535AE /* detialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detialViewController.swift; sourceTree = "<group>"; };
+		D5C098191C5ED9D90012E2D8 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		D5CFE27F1C3C51DD00E6B922 /* Movie review.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie review.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5CFE2821C3C51DD00E6B922 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5CFE2841C3C51DD00E6B922 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				D525E1E71C3F4736008EA88A /* TopRatedViewController.swift */,
 				D5CFE2881C3C51DD00E6B922 /* Main.storyboard */,
 				D525E1F11C3F5A6F008EA88A /* boxCell.swift */,
+				D5C098191C5ED9D90012E2D8 /* CollectionCell.swift */,
 				D509CDEF1C44694C00709DA7 /* searchTableCell.swift */,
 				D5CFE2961C3C875800E6B922 /* movieCellController.swift */,
 				D509CDED1C444ED300709DA7 /* SearchViewController.swift */,
@@ -252,6 +255,7 @@
 				D525E1EC1C3F4EF2008EA88A /* BoxViewController.swift in Sources */,
 				D509CDF01C44694C00709DA7 /* searchTableCell.swift in Sources */,
 				D525E1E81C3F4736008EA88A /* TopRatedViewController.swift in Sources */,
+				D5C0981A1C5ED9D90012E2D8 /* CollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,19 +14,18 @@ import EZLoadingActivity
 
 //import AlgoliaSearch-Client-Swift
 
-class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDelegate, UISearchBarDelegate{
+class BoxViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
-    @IBOutlet var TableView: UITableView!
     
+    @IBOutlet var boxView: UICollectionView!
     var movies: [NSDictionary]?
     var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Search controller
-        TableView.delegate = self
-        TableView.dataSource = self
-        EZLoadingActivity.show("Loading...", disableUI: true)
+        boxView.delegate = self
+        boxView.dataSource = self
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string:"https://api.themoviedb.org/3/movie/top_rated?api_key=\(apiKey)")
         let request = NSURLRequest(URL: url!)
@@ -43,7 +42,7 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
                         data, options:[]) as? NSDictionary {
                             NSLog("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as? [NSDictionary]
-                            self.TableView.reloadData()
+                            self.boxView.reloadData()
                     }
                 }
         });
@@ -53,7 +52,7 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         
         
-        self.TableView.addSubview(refreshControl)
+        self.boxView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: Selector("reload"), forControlEvents: UIControlEvents.ValueChanged)
         task.resume()
         
@@ -61,10 +60,16 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
     }
     
     func reload(){
-        self.TableView.reloadData()
+        self.boxView.reloadData()
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+   /* func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
+        if let movies = movies{
+            return movies.count
+        }
+        return 0
+    }*/
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let movies = movies{
             return movies.count
         }
@@ -72,11 +77,50 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
     }
     
     
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = boxView.dequeueReusableCellWithReuseIdentifier("CollectionCell", forIndexPath: indexPath) as! CollectionCell
+        let movie = movies![indexPath.row]
+        let title = movie["title"] as! String
+       // let overview = movie["overview"] as! String
+        let posterPath = movie["poster_path"] as! String
+        let baseURL = "http://image.tmdb.org/t/p/w500"
+        let imageURL = NSURL(string: baseURL + posterPath)
+        cell.movieImage.setImageWithURL(imageURL!)
+        // cell.
+        cell.labelTitle.text = title
+        //cell.textView1.text = overview
+        //-----below is code for fade in
+      //  let imageUrl = imageURL
+        //let imageRequest = NSURLRequest(URL:imageUrl! )
+        
+       /* cell.image1.setImageWithURLRequest(
+            imageRequest,
+            placeholderImage: nil,
+            success: { (imageRequest, imageResponse, image) -> Void in
+                
+                // imageResponse will be nil if the image is cached
+                if imageResponse != nil {
+                    print("Image was NOT cached, fade in image")
+                    cell.image1.alpha = 0.0
+                    cell.image1.image = image
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        cell.image1.alpha = 1.0
+                    })
+                } else {
+                    print("Image was cached so just update the image")
+                    cell.image1.image = image
+                }
+            },
+            failure: { (imageRequest, imageResponse, error) -> Void in
+                // do something for the failure condition
+        })*/
+        
+        
+        return cell
+    }
     
     
-    
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+   /* func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         EZLoadingActivity.hide(success: true, animated: true)
         let cell = tableView.dequeueReusableCellWithIdentifier("boxCell") as! boxCell
         let movie = movies![indexPath.row]
@@ -119,6 +163,7 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
         return cell
         
     }
+*/
     // var movietitle = ""
     //var relasedate = ""
     //var popularity:NSNumber = 0.0
@@ -137,7 +182,22 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
     var  posterPath = ""
     var baseURL = ""
     var imageURL :NSURL!
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let movie = movies![indexPath.item]
+        movietitleText = movie["title"] as! String
+        relasedate = movie["release_date"] as! String
+        popularity = movie["popularity"] as! NSNumber
+        vote_average = movie["vote_average"] as! NSNumber
+        votecount = movie["vote_count"] as! NSNumber
+        overview = movie["overview"] as! String
+        posterPath = movie["poster_path"] as! String
+        baseURL = "http://image.tmdb.org/t/p/w500"
+        imageURL = NSURL(string: baseURL + posterPath)!
+        self.performSegueWithIdentifier("ShowDetail", sender: self)
+        print(movie)
+
+    }
+   /* func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
         let movie = movies![indexPath.row]
@@ -172,7 +232,7 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
         
     }
     
-    
+    */
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"  {
@@ -180,15 +240,16 @@ class BoxViewController: UIViewController, UITableViewDataSource , UITableViewDe
             detialViewControllerInstance.detailedLabelText = overview
             detialViewControllerInstance.DetailImageURL = imageURL
             detialViewControllerInstance.movieTitleText = movietitleText
-            let s_popularity:String = "Popularity: " + String(format:"%.2f", popularity.doubleValue)
-            detialViewControllerInstance.popularityLabelText = s_popularity
-            let s_count:String = "Vote Count: " + String(format:"%d", votecount.intValue)
-            detialViewControllerInstance.voteCountLabelText = s_count
-            detialViewControllerInstance.releaseDateText = relasedate
-            let s_average:String = "Vote Average: " + String(format:"%.2f", vote_average.doubleValue)
-            detialViewControllerInstance.vote_averageLabelText = s_average
+            //let s_popularity:String = "Popularity: " + String(format:"%.2f", popularity.doubleValue)
+           // detialViewControllerInstance.popularityLabelText = s_popularity
+            //let s_count:String = "Vote Count: " + String(format:"%d", votecount.intValue)
+            //detialViewControllerInstance.voteCountLabelText = s_count
+           //// detialViewControllerInstance.releaseDateText = relasedate
+            //let s_average:String = "Vote Average: " + String(format:"%.2f", vote_average.doubleValue)
+            //detialViewControllerInstance.vote_averageLabelText = s_average
         }
     }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
