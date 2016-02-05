@@ -8,7 +8,7 @@ Time spent: 22 hours spent in total
 
 The following **required** functionality is completed:
 
-- [ t] User can view movie details by tapping on a cell.
+- User can view movie details by tapping on a cell.
 - [t ] User can select from a tab bar for either **Now Playing** or **Top Rated** movies.
 - [ t] Customize the selection effect of the cell.
 
